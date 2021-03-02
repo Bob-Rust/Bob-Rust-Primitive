@@ -15,20 +15,13 @@ type Ellipse struct {
 	Circle bool
 }
 
-func NewRandomEllipse(worker *Worker) *Ellipse {
-	rnd := worker.Rnd
-	x := rnd.Intn(worker.W)
-	y := rnd.Intn(worker.H)
-	rx := rnd.Intn(32) + 1
-	ry := rnd.Intn(32) + 1
-	return &Ellipse{worker, x, y, rx, ry, false}
-}
+var possibleSizes = [6]int{1,2,3,4,5,6}
 
 func NewRandomCircle(worker *Worker) *Ellipse {
 	rnd := worker.Rnd
 	x := rnd.Intn(worker.W)
 	y := rnd.Intn(worker.H)
-	r := rnd.Intn(32) + 1
+	r := possibleSizes[rnd.Intn(6) * paintingToolScale]
 	return &Ellipse{worker, x, y, r, r, true}
 }
 

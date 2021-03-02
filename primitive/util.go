@@ -16,6 +16,8 @@ import (
 	"path/filepath"
 )
 
+var paintingToolScale = 1
+
 func LoadImage(path string) (image.Image, error) {
 	if path == "-" {
 		im, _, err := image.Decode(os.Stdin)
