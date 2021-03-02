@@ -1,11 +1,10 @@
 package primitive
 
 import (
+	"github.com/golang/freetype/raster"
 	"image"
 	"math/rand"
 	"time"
-
-	"github.com/golang/freetype/raster"
 )
 
 type Worker struct {
@@ -88,21 +87,9 @@ func (worker *Worker) RandomState(t ShapeType, a int) *State {
 	switch t {
 	default:
 		return worker.RandomState(ShapeType(worker.Rnd.Intn(8)+1), a)
-	case ShapeTypeTriangle:
-		return NewState(worker, NewRandomTriangle(worker), a)
-	case ShapeTypeRectangle:
-		return NewState(worker, NewRandomRectangle(worker), a)
-	case ShapeTypeEllipse:
-		return NewState(worker, NewRandomEllipse(worker), a)
+	/*case ShapeTypeRectangle:
+		return NewState(worker, NewRandomRectangle(worker), a)*/
 	case ShapeTypeCircle:
 		return NewState(worker, NewRandomCircle(worker), a)
-	case ShapeTypeRotatedRectangle:
-		return NewState(worker, NewRandomRotatedRectangle(worker), a)
-	case ShapeTypeQuadratic:
-		return NewState(worker, NewRandomQuadratic(worker), a)
-	case ShapeTypeRotatedEllipse:
-		return NewState(worker, NewRandomRotatedEllipse(worker), a)
-	case ShapeTypePolygon:
-		return NewState(worker, NewRandomPolygon(worker, 4, false), a)
 	}
 }
