@@ -1,4 +1,4 @@
-from Queue import Queue
+from multiprocessing import Queue
 import itertools
 import os
 import subprocess
@@ -43,7 +43,7 @@ def worker(jobs, done):
 def process(in_folder, out_folder, nlist, alist, mlist, nworkers):
     jobs = Queue()
     done = Queue()
-    for i in xrange(nworkers):
+    for i in range(nworkers):
         t = threading.Thread(target=worker, args=(jobs, done))
         t.setDaemon(True)
         t.start()
@@ -56,14 +56,14 @@ def process(in_folder, out_folder, nlist, alist, mlist, nworkers):
     for _, job in items:
         jobs.put(job)
         count += 1
-    for i in xrange(count):
+    for i in range(count):
         done.get()
 
 log_lock = threading.Lock()
 
 def log(x):
     with log_lock:
-        print x
+        print(x)
 
 if __name__ == '__main__':
     args = sys.argv[1:]

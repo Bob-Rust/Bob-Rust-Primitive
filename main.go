@@ -164,6 +164,10 @@ func main() {
 		for i := 0; i < config.Count; i++ {
 			frame++
 
+			if frame % 10 == 0 {
+				println(frame)
+			}
+
 			// find optimal shape and add it to the model
 			t := time.Now()
 			n := model.Step(primitive.ShapeType(config.Mode), config.Alpha, config.Repeat)
