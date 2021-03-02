@@ -1,4 +1,4 @@
-module github.com/sekwah/primitive
+module github.com/sekwah41/primitive
 
 go 1.16
 

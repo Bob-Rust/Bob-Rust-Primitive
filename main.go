@@ -12,8 +12,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/sekwah/primitive/primitive"
 	"github.com/nfnt/resize"
+	"github.com/sekwah41/primitive/primitive"
 )
 
 var (
