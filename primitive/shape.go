@@ -14,12 +14,12 @@ type ShapeType int
 
 const (
 	ShapeTypeAny ShapeType = iota
-	ShapeTypeTriangle
+	//ShapeTypeTriangle
 	ShapeTypeRectangle
-	ShapeTypeEllipse
+	//ShapeTypeEllipse
 	ShapeTypeCircle
-	ShapeTypeRotatedRectangle
-	ShapeTypeQuadratic
-	ShapeTypeRotatedEllipse
-	ShapeTypePolygon
+	//ShapeTypeRotatedRectangle
+	//ShapeTypeQuadratic
+	//ShapeTypeRotatedEllipse
+	//ShapeTypePolygon
 )

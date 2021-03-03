@@ -18,6 +18,29 @@ import (
 
 var paintingToolScale = 1
 
+var commonOpacity = 50
+
+var possibleColors = [20]Color{Color{46, 204, 112, commonOpacity},
+	Color{22, 161, 132, commonOpacity},
+	Color{52, 153, 218, commonOpacity},
+	Color{241, 195, 16, commonOpacity},
+	Color{143, 69, 173, commonOpacity},
+	Color{153, 163, 162, commonOpacity},
+	Color{52, 73, 93, commonOpacity},
+	Color{46, 158, 135, commonOpacity},
+	Color{30, 224, 24, commonOpacity},
+	Color{176, 122, 195, commonOpacity},
+	Color{231, 127, 33, commonOpacity},
+	Color{236, 240, 241, commonOpacity},
+	Color{38, 174, 96, commonOpacity},
+	Color{33, 203, 241, commonOpacity},
+	Color{126, 77, 41, commonOpacity},
+	Color{239, 68, 49, commonOpacity},
+	Color{74, 212, 188, commonOpacity},
+	Color{69, 48, 33, commonOpacity},
+	Color{49, 49, 49, commonOpacity},
+	Color{1, 2, 1, commonOpacity}}
+
 func LoadImage(path string) (image.Image, error) {
 	if path == "-" {
 		im, _, err := image.Decode(os.Stdin)

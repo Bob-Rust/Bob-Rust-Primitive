@@ -17,8 +17,9 @@ func NewRandomRectangle(worker *Worker) *Rectangle {
 	rnd := worker.Rnd
 	x1 := rnd.Intn(worker.W)
 	y1 := rnd.Intn(worker.H)
-	x2 := clampInt(x1+rnd.Intn(32)+1, 0, worker.W-1)
-	y2 := clampInt(y1+rnd.Intn(32)+1, 0, worker.H-1)
+	var size = possibleSizes[rnd.Intn(6) * paintingToolScale]
+	x2 := clampInt(x1+size+1, 0, worker.W-1)
+	y2 := clampInt(y1+size+1, 0, worker.H-1)
 	return &Rectangle{worker, x1, y1, x2, y2}
 }
 
@@ -58,13 +59,18 @@ func (r *Rectangle) Mutate() {
 	w := r.Worker.W
 	h := r.Worker.H
 	rnd := r.Worker.Rnd
+	var size = possibleSizes[rnd.Intn(6) * paintingToolScale]
 	switch rnd.Intn(2) {
 	case 0:
-		r.X1 = clampInt(r.X1+int(rnd.NormFloat64()*16), 0, w-1)
-		r.Y1 = clampInt(r.Y1+int(rnd.NormFloat64()*16), 0, h-1)
+		var offsetX = int(rnd.NormFloat64()*16)
+		var offsetY = int(rnd.NormFloat64()*16)
+		r.X1 = clampInt(r.X1+offsetX, 0, w-1)
+		r.Y1 = clampInt(r.Y1+offsetY, 0, h-1)
+		r.X2 = clampInt(r.X2+offsetX + size, 0, w-1)
+		r.Y2 = clampInt(r.Y2+offsetY + size, 0, h-1)
 	case 1:
-		r.X2 = clampInt(r.X2+int(rnd.NormFloat64()*16), 0, w-1)
-		r.Y2 = clampInt(r.Y2+int(rnd.NormFloat64()*16), 0, h-1)
+		r.X2 = clampInt(r.X1+size, 0, w-1)
+		r.Y2 = clampInt(r.Y1+size, 0, h-1)
 	}
 }
 

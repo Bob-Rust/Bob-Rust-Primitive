@@ -84,12 +84,14 @@ func (worker *Worker) BestRandomState(t ShapeType, a, n int) *State {
 }
 
 func (worker *Worker) RandomState(t ShapeType, a int) *State {
-	switch t {
-	default:
-		return worker.RandomState(ShapeType(worker.Rnd.Intn(8)+1), a)
-	/*case ShapeTypeRectangle:
-		return NewState(worker, NewRandomRectangle(worker), a)*/
-	case ShapeTypeCircle:
-		return NewState(worker, NewRandomCircle(worker), a)
-	}
+	return NewState(worker, NewRandomCircle(worker), a)
+	//return NewState(worker, NewRandomRectangle(worker), a)
+	//switch t {
+	//default:
+	//	return worker.RandomState(ShapeType(worker.Rnd.Intn(2)+1), a)
+	//case ShapeTypeCircle:
+	//	return NewState(worker, NewRandomCircle(worker), a)
+	//case ShapeTypeRectangle:
+	//	return NewState(worker, NewRandomRectangle(worker), a)
+	//}
 }
