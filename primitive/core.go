@@ -5,6 +5,50 @@ import (
 	"math"
 )
 
+func closestColor(color Color) Color {
+	c := possibleColors[0]
+	closestSoFar := colorDistance(color, c)
+	for _, p := range possibleColors[1:] {
+		distance := colorDistance(color, p)
+		if distance < closestSoFar {
+			// Set the return
+			c = p
+			// Record closest distance
+			closestSoFar = distance
+		}
+	}
+	//println("INFO")
+	//println(closestSoFar)
+	//println("Test", c.R, c.G, c.B, color.R, color.G, color.B)
+	return c
+}
+
+func closestAlpha(alpha int) int {
+	c := possibleAlpha[0]
+	closestSoFar := diffInt(alpha, c)
+	for _, p := range possibleAlpha[1:] {
+		distance := diffInt(alpha, p)
+		if distance < closestSoFar {
+			// Set the return
+			c = p
+			// Record closest distance
+			closestSoFar = distance
+		}
+	}
+	return c
+}
+
+func diffInt(a, b int) int {
+	if a < b {
+		return b - a
+	}
+	return a - b
+}
+
+func colorDistance(c1 Color, c2 Color) float64 {
+	return math.Sqrt(float64((c1.R-c2.R)*(c1.R-c2.R) + ((c1.G - c2.G) * (c1.G - c2.G)) + ((c1.B - c2.B) * (c1.B - c2.B))))
+}
+
 func computeColor(target, current *image.RGBA, lines []Scanline, alpha int) Color {
 	var rsum, gsum, bsum, count int64
 	a := 0x101 * 255 / alpha
@@ -30,7 +74,8 @@ func computeColor(target, current *image.RGBA, lines []Scanline, alpha int) Colo
 	r := clampInt(int(rsum/count)>>8, 0, 255)
 	g := clampInt(int(gsum/count)>>8, 0, 255)
 	b := clampInt(int(bsum/count)>>8, 0, 255)
-	return Color{r, g, b, alpha}
+	closest := closestColor(Color{r, g, b, alpha})
+	return Color{closest.R, closest.G, closest.B, alpha}
 }
 
 func copyLines(dst, src *image.RGBA, lines []Scanline) {

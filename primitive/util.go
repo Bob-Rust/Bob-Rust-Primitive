@@ -41,6 +41,8 @@ var possibleColors = [20]Color{Color{46, 204, 112, commonOpacity},
 	Color{49, 49, 49, commonOpacity},
 	Color{1, 2, 1, commonOpacity}}
 
+var possibleAlpha = [6]int{42,85,128,171,213,256}
+
 func LoadImage(path string) (image.Image, error) {
 	if path == "-" {
 		im, _, err := image.Decode(os.Stdin)
