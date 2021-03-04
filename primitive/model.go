@@ -83,6 +83,28 @@ func (model *Model) Frames(scoreDelta float64) []image.Image {
 	return result
 }
 
+func (model *Model) BOSRT() string {
+	//bg := model.Background
+	var lines []string
+	/**
+	Format
+	Width,Height,BrushOpacity
+	x,y,BrushSize,BrushColor
+	*/
+	lines = append(lines, fmt.Sprintf("%d,%d", model.Sw, model.Sh))
+	//lines = append(lines, fmt.Sprintf("<rect x=\"0\" y=\"0\" width=\"%d\" height=\"%d\" fill=\"#%02x%02x%02x\" />", model.Sw, model.Sh, bg.R, bg.G, bg.B))
+	//lines = append(lines, fmt.Sprintf("<g transform=\"scale(%f) translate(0.5 0.5)\">", model.Scale))
+	for i, shape := range model.Shapes {
+		c := model.Colors[i]
+		attrs := "%02x%02x%02x"
+		attrs = fmt.Sprintf(attrs, c.R, c.G, c.B)
+		lines = append(lines, shape.BORST(attrs))
+	}
+	//lines = append(lines, "</g>")
+	//lines = append(lines, "</svg>")
+	return strings.Join(lines, "\n")
+}
+
 func (model *Model) SVG() string {
 	bg := model.Background
 	var lines []string

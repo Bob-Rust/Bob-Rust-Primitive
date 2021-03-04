@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"math"
 	"math/rand"
 	"os"
 	"path/filepath"
@@ -164,8 +165,8 @@ func main() {
 		for i := 0; i < config.Count; i++ {
 			frame++
 
-			if frame % 10 == 0 {
-				println(frame)
+			if frame%10 == 0 {
+				println(fmt.Sprint(frame, "/", config.Count, " ", math.Round(float64(frame)/float64(config.Count)*100)), "%")
 			}
 
 			// find optimal shape and add it to the model
@@ -183,7 +184,8 @@ func main() {
 				}
 				percent := strings.Contains(output, "%")
 				saveFrames := percent && ext != ".gif"
-				saveFrames = saveFrames && frame%Nth == 0
+				// Changed to be forced just for seeing progress.
+				saveFrames = frame%Nth == 0
 				last := j == len(Configs)-1 && i == config.Count-1
 				if saveFrames || last {
 					path := output
@@ -200,6 +202,10 @@ func main() {
 						check(primitive.SaveJPG(path, model.Context.Image(), 95))
 					case ".svg":
 						check(primitive.SaveFile(path, model.SVG()))
+					case ".borst":
+						check(primitive.SavePNG(path+".png", model.Context.Image()))
+						//check(primitive.SaveFile(path + ".svg", model.SVG()))
+						check(primitive.SaveFile(path, model.BOSRT()))
 					case ".gif":
 						frames := model.Frames(0.001)
 						check(primitive.SaveGIFImageMagick(path, frames, 50, 250))
